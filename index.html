@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>enfive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 60px;
+    min-height: 100vh;
+  }
+
+  .n5 {
+    font-size: clamp(120px, 25vw, 220px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 40px;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .label {
+    color: #999;
+  }
+
+  footer {
+    position: fixed;
+    bottom: 60px;
+    left: 60px;
+    color: #999;
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 32px; }
+    footer { bottom: 32px; left: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="n5" aria-hidden="true">n5</div>
+
+<h1>enfive</h1>
+
+<div class="links">
+  <div>
+    <span class="label">music — </span>
+    <a href="https://soundcloud.com/n5316n" target="_blank" rel="noopener">soundcloud</a>,
+    <a href="https://open.spotify.com/artist/4gPfp8SualHtRxwbk7vhFf?si=l9ZE7G3ASoGGhbrWmycvsw" target="_blank" rel="noopener">spotify</a>,
+    <a href="https://enfive.bandcamp.com/" target="_blank" rel="noopener">bandcamp</a>
+  </div>
+  <div>
+    <span class="label">social — </span>
+    <a href="https://instagram.com/enfive" target="_blank" rel="noopener">instagram</a>,
+    <a href="https://www.tiktok.com/@enfive_n5" target="_blank" rel="noopener">tiktok</a>,
+    <a href="https://x.com/" target="_blank" rel="noopener">x</a>
+  </div>
+  <div>
+    <span class="label">booking — </span>
+    <a href="mailto:your@email.com">email</a>
+  </div>
+</div>
+
+<footer>Los Angeles</footer>
+
+</body>
+</html>
