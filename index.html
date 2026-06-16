@@ -18,7 +18,7 @@
     body {
       background: #ffffff;
       color: #0a0a0a;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Ctext y='16' font-family='Helvetica Neue, Arial, sans-serif' font-size='14' font-weight='700' fill='currentColor'%3E%3C5%3C/text%3E%3C/svg%3E") 0 0, auto;
+      cursor: none;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       transition: background 0.3s ease;
       overflow: hidden;
@@ -104,6 +104,19 @@
       opacity: 1;
     }
 
+    #cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0a0a0a;
+      transform: translate(4px, -8px);
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
     @media (max-width: 560px) {
       .links-top, .links-bottom {
         padding: 24px 20px;
@@ -117,6 +130,8 @@
   </style>
 </head>
 <body>
+
+<div id="cursor">&lt;5</div>
 
   <div class="stage">
     <div class="links-top">
@@ -158,9 +173,15 @@
 
     let index = 0;
 
-    function getCursor(dark) {
-      const fill = dark ? '%23ffffff' : '%230a0a0a';
-      return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Ctext y='16' font-family='Helvetica Neue, Arial, sans-serif' font-size='14' font-weight='700' fill='${fill}'%3E%3C5%3C/text%3E%3C/svg%3E") 0 0, auto`;
+    const cursor = document.getElementById('cursor');
+
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    function getCursorColor(isLight) {
+      return isLight ? '#0a0a0a' : '#ffffff';
     }
 
     function cycle() {
@@ -169,7 +190,7 @@
       document.body.style.background = bg;
       const isLight = lightBgs.has(bg);
       document.body.style.color = isLight ? '#0a0a0a' : '#ffffff';
-      document.body.style.cursor = getCursor(!isLight);
+      cursor.style.color = getCursorColor(isLight);
     }
 
     document.getElementById('name').addEventListener('click', cycle);
