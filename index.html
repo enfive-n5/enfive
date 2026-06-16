@@ -193,9 +193,10 @@
       cursor.style.color = getCursorColor(isLight);
     }
 
-    document.getElementById('name').addEventListener('click', cycle);
-    document.getElementById('n5').addEventListener('click', cycle);
-    document.getElementById('tag').addEventListener('click', cycle);
+    document.addEventListener('click', e => {
+      if (e.target.tagName === 'A') return;
+      cycle();
+    });
   </script>
 
 </body>
