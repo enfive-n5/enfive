@@ -113,9 +113,22 @@
       font-weight: 700;
       color: #0a0a0a;
       transform: translate(4px, -8px);
-      transition: color 0.3s;
       white-space: nowrap;
     }
+
+    .tracer {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      transform: translate(4px, -8px);
+      transition: opacity 0.4s ease, color 0.3s;
+    }
+
+    * { cursor: none; }
 
     @media (max-width: 560px) {
       .links-top, .links-bottom {
@@ -174,11 +187,49 @@
     let index = 0;
 
     const cursor = document.getElementById('cursor');
+    const TRACER_COUNT = 6;
+    const tracers = [];
+
+    for (let i = 0; i < TRACER_COUNT; i++) {
+      const t = document.createElement('div');
+      t.classList.add('tracer');
+      t.textContent = '<5';
+      t.style.opacity = 0;
+      document.body.appendChild(t);
+      tracers.push({ el: t, x: 0, y: 0 });
+    }
+
+    let mouseX = 0, mouseY = 0;
+    let cursorColor = '#0a0a0a';
 
     document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
     });
+
+    // trail animation
+    const positions = Array(TRACER_COUNT).fill({ x: 0, y: 0 });
+    let prev = { x: 0, y: 0 };
+
+    function animateTracers() {
+      positions.unshift({ x: mouseX, y: mouseY });
+      positions.pop();
+
+      tracers.forEach((t, i) => {
+        const delay = (i + 1) * 3;
+        const pos = positions[Math.min(delay, positions.length - 1)];
+        t.el.style.left = pos.x + 'px';
+        t.el.style.top = pos.y + 'px';
+        t.el.style.opacity = (1 - (i + 1) / (TRACER_COUNT + 1)) * 0.4;
+        t.el.style.color = cursorColor;
+      });
+
+      requestAnimationFrame(animateTracers);
+    }
+
+    animateTracers();
 
     function getCursorColor(isLight) {
       return isLight ? '#0a0a0a' : '#ffffff';
@@ -190,7 +241,8 @@
       document.body.style.background = bg;
       const isLight = lightBgs.has(bg);
       document.body.style.color = isLight ? '#0a0a0a' : '#ffffff';
-      cursor.style.color = getCursorColor(isLight);
+      cursorColor = getCursorColor(isLight);
+      cursor.style.color = cursorColor;
     }
 
     document.addEventListener('click', e => {
