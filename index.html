@@ -247,10 +247,13 @@
       cursor.style.color = cursorColor;
     }
 
-    document.addEventListener('click', e => {
-      if (e.target.tagName === 'A') return;
+    document.getElementById('name').addEventListener('click', () => {
       audio.currentTime = 0;
       audio.play();
+    });
+
+    document.addEventListener('click', e => {
+      if (e.target.tagName === 'A') return;
       cycle();
     });
   </script>
