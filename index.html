@@ -186,6 +186,8 @@
 
     let index = 0;
 
+    const audio = new Audio('enfive_-_tag.wav');
+
     const cursor = document.getElementById('cursor');
     const TRACER_COUNT = 6;
     const tracers = [];
@@ -247,6 +249,8 @@
 
     document.addEventListener('click', e => {
       if (e.target.tagName === 'A') return;
+      audio.currentTime = 0;
+      audio.play();
       cycle();
     });
   </script>
